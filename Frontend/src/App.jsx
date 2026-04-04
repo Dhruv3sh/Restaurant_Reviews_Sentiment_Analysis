@@ -1,12 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import SentimentChecker from './SentimentChecker'
+import Layout from './Components/Layout'
+import { ThemeProvider } from './Context/ThemeContext'
+import Home from './Pages/Home'
+// import SentimentChecker from './SentimentChecker'
 
-function App() {
+const App = () => {
 
   return (
     <>
-    <SentimentChecker/>
+    <ThemeProvider>
+      <Layout>
+      <Home/>
+    </Layout>
+    </ThemeProvider>
     </>
   )
 }

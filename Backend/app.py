@@ -1,42 +1,70 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import joblib, re, nltk
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 
-nltk.download('stopwords', quiet=True)
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
-app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app = Flask(__name__)
+CORS(app)
 
-try:
-    model = joblib.load('model.pkl')
-    vectorizer = joblib.load('vectorizer.pkl')
-except FileNotFoundError as e:
-    raise RuntimeError(f"Model file not found: {e}")
+# Load model and vectorizer
+model = joblib.load("model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
 
-ps = PorterStemmer()
-sw = set(stopwords.words('english'))
+# Contractions dictionary
+contractions_dict = {
+    "can't": "can not", "won't": "will not", "isn't": "is not",
+    "wasn't": "was not", "weren't": "were not", "haven't": "have not",
+    "hasn't": "has not", "didn't": "did not", "don't": "do not",
+    "doesn't": "does not", "aren't": "are not", "couldn't": "could not",
+    "shouldn't": "should not", "wouldn't": "would not"
+}
 
-def preprocess(text: str) -> str:
-    tokens = re.sub('[^a-zA-Z]', ' ', text).lower().split()
-    tokens = [ps.stem(w) for w in tokens if w not in sw]
-    return ' '.join(tokens)
+lemmatizer = WordNetLemmatizer()
+stop_words = stopwords.words('english')
+stop_words.remove('not')
 
-class ReviewIn(BaseModel):
-    review: str
+def expand_contractions(text):
+    for word in text.split():
+        if word.lower() in contractions_dict:
+            text = text.replace(word, contractions_dict[word.lower()])
+    return text
 
-@app.post('/predict')
-def predict(body: ReviewIn):
-    if not body.review.strip():
-        raise HTTPException(status_code=400, detail="Review text cannot be empty")
+def clean_review(text):
+    text = expand_contractions(text)
+    text = re.sub(r'[^a-zA-Z\s]', '', text).lower()
+    words = text.split()
+    clean_words = [lemmatizer.lemmatize(w) for w in words if w not in stop_words]
+    final_words = []
+    for i in range(len(clean_words)):
+        if i == 0 or clean_words[i] != clean_words[i-1]:
+            final_words.append(clean_words[i])
+    return ' '.join(final_words)
 
-    cleaned = preprocess(body.review)
-    vec = vectorizer.transform([cleaned]).toarray()
-    pred = model.predict(vec)[0]
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    review = data.get('review', '')
 
-    return {
-        "sentiment": "positive" if pred == 1 else "negative",
-        "label": int(pred)
-    }
+    if not review.strip():
+        return jsonify({'error': 'Review text is empty'}), 400
+
+    cleaned = clean_review(review)
+    vectorized = vectorizer.transform([cleaned]).toarray()
+    prediction = model.predict(vectorized)[0]
+
+    return jsonify({
+        'sentiment': 'Positive' if prediction == 1 else 'Negative',
+        'label': int(prediction)
+    })
+
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({'status': 'Flask is running!'})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
