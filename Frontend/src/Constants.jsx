@@ -16,9 +16,9 @@ export const PAGES = {
  
 export const STATS = [
   { label: "Total Users", value: "24,512", delta: "+12%",  positive: true,  icon: "◉", hue: 200 },
-  { label: "Revenue",     value: "$84.2k", delta: "+8.4%", positive: true,  icon: "◈", hue: 260 },
-  { label: "Active Now",  value: "1,209",  delta: "+3%",   positive: true,  icon: "◎", hue: 320 },
-  { label: "Churn Rate",  value: "2.1%",   delta: "-0.3%", positive: false, icon: "◇", hue: 20  },
+  { label: "Total Reviews",     value: "1,708", delta: "+8.4%", positive: true,  icon: "◈", hue: 260 },
+  { label: "Positive Reviews",  value: "1,209",  delta: "+3%",   positive: true,  icon: "◎", hue: 320 },
+  { label: "Negative Reviews",  value: "499",   delta: "-0.3%", positive: false, icon: "◇", hue: 20  },
 ];
  
 export const ACTIVITY = [
