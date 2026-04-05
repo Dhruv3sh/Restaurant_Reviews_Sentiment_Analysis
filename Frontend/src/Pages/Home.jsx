@@ -41,7 +41,7 @@ const Home = ({ activePage }) => {
         {/* Panel header */}
         <div className="flex justify-between items-center mb-5">
           <span className={`text-base font-semibold font-display ${isDark ? "text-slate-100" : "text-slate-900"}`}>
-            Recent Activity
+            Recent Reviews
           </span>
           <button
             className={`

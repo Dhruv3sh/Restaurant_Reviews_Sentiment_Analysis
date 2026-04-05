@@ -52,13 +52,13 @@ const Navbar = ({ activePage, onMenuClick }) => {
           title={
             mode === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
           }
-          className="flex items-center justify-center w-9 h-9 rounded-lg border border-white/8 bg-transparent text-slate-500 hover:text-slate-100 hover:bg-white/5 transition-all duration-150 cursor-pointer text-base"
+          className={`flex items-center justify-center w-9 h-9 rounded-lg  bg-transparent text-slate-500 hover:text-slate-100 hover:bg-white/5 transition-all duration-150 cursor-pointer text-base ${mode === "dark" ? "border border-white/8" : "bg-slate-50 border border-black/8" }`}
         >
           {mode === "dark" ? "☀️" : "🌙"}
         </button>
 
         {/* Notification Bell */}
-        <button className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-white/8 bg-transparent text-slate-500 hover:text-slate-100 hover:bg-white/5 transition-colors duration-150 cursor-pointer">
+        <button className={`relative flex items-center justify-center w-9 h-9 rounded-lg bg-transparent text-slate-500 hover:text-slate-100 hover:bg-white/5 transition-colors duration-150 cursor-pointer  ${mode === "dark" ? "border border-white/8" : "bg-slate-50 border border-black/8" }`}>
           <span className="text-sm">🔔</span>
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full shadow-[0_0_6px_rgba(99,102,241,0.7)]" />
         </button>

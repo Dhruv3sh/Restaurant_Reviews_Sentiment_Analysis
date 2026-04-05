@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, onToggle, active, onNav }) => {
                     ? "bg-indigo-500 text-white shadow-[0_0_14px_rgba(99,102,241,0.45)] font-semibold"
                     : isDark
                       ? "text-slate-500 hover:bg-white/5 hover:text-slate-100"
-                      : "text-slate-500 hover:bg-black/5 hover:text-slate-900"
+                      : "text-slate-900 hover:bg-black/5 hover:text-slate-900"
                   }
                 `}
               >

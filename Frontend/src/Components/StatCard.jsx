@@ -19,7 +19,7 @@ const StatCard = ({ stat }) => {
     >
       {/* Top row: icon + delta badge */}
       <div className="flex justify-between items-start">
-        <span className="text-xl">{stat.icon}</span>
+        <span className={` text-xl ${isDark ? "text-white" : "text-black"} `}>{stat.icon}</span>
         <span
           className={`
             text-[11px] font-semibold px-2 py-0.5 rounded-full font-body
