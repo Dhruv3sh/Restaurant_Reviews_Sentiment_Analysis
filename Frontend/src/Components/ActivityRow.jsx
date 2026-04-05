@@ -24,7 +24,7 @@ const ActivityRow = ({ item, isLast }) => {
           {item.label}
         </p>
         <p className="text-[11px] mt-0.5 font-body text-slate-500">
-          {item.time}
+          Total Reviews given {item.hue}
         </p>
       </div>
 
@@ -35,7 +35,7 @@ const ActivityRow = ({ item, isLast }) => {
           ${isDark ? "border border-white/8" : "border border-black/8"}
         `}
       >
-        {item.tag}
+        {item.time}
       </span>
     </div>
   )
