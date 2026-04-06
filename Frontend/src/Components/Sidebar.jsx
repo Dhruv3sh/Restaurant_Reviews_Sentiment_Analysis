@@ -1,4 +1,5 @@
 // src/Components/Sidebar.jsx
+import { NavLink } from "react-router-dom"
 import { NAV_ITEMS } from "../Constants"
 import { useTheme } from "../Context/ThemeContext"
 
@@ -54,7 +55,8 @@ const Sidebar = ({ isOpen, onClose, collapsed, onToggle, active, onNav }) => {
           {NAV_ITEMS.map((item) => {
             const isActive = active === item.id
             return (
-              <button
+              <NavLink key={item.id} to={item.href}>
+                <button
                 key={item.id}
                 onClick={() => {
                   onNav(item.id)
@@ -78,6 +80,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, onToggle, active, onNav }) => {
                   {item.label}
                 </span>
               </button>
+              </NavLink>
             )
           })}
         </nav>

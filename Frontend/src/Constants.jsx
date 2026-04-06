@@ -1,9 +1,9 @@
 export const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: "⊞" },
-  { id: "analytics", label: "Analytics", icon: "◈" },
-  { id: "projects",  label: "Reviews",  icon: "◉" },
-  { id: "messages",  label: "Images",  icon: "◎" },
-  { id: "settings",  label: "Settings",  icon: "◇" },
+  { id: "dashboard", href:"/", label: "Dashboard", icon: "⊞" },
+  { id: "Reviews", href:"reviews",  label: "Reviews",  icon: "◉" },
+  { id: "analytics", href:"analytics", label: "Analytics", icon: "◈" },
+  { id: "images", href:"images",  label: "Images",  icon: "◎" },
+  { id: "settings", href:"settings",  label: "Settings",  icon: "◇" },
 ];
  
 export const PAGES = {
