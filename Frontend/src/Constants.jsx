@@ -1,7 +1,7 @@
 export const NAV_ITEMS = [
   { id: "dashboard", href:"/", label: "Dashboard", icon: "⊞" },
   { id: "Reviews", href:"reviews",  label: "Reviews",  icon: "◉" },
-  { id: "analytics", href:"analytics", label: "Analytics", icon: "◈" },
+  // { id: "analytics", href:"analytics", label: "Analytics", icon: "◈" },
   { id: "images", href:"images",  label: "Images",  icon: "◎" },
   { id: "settings", href:"settings",  label: "Settings",  icon: "◇" },
 ];
@@ -25,14 +25,5 @@ export const ACTIVITY = [
   { id: 1001, label: "User #1001 completed an action", time: "3 minutes ago",  tag: "Update", hue: 200 },
   { id: 1002, label: "User #1002 completed an action", time: "6 minutes ago",  tag: "Create", hue: 260 },
   { id: 1003, label: "User #1003 completed an action", time: "9 minutes ago",  tag: "Delete", hue: 320 },
-  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }, 
-  { id: 1003, label: "User #1003 completed an action", time: "9 minutes ago",  tag: "Delete", hue: 320 },
-  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }, 
-  { id: 1003, label: "User #1003 completed an action", time: "9 minutes ago",  tag: "Delete", hue: 320 },
-  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }, 
-  { id: 1003, label: "User #1003 completed an action", time: "9 minutes ago",  tag: "Delete", hue: 320 },
-  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }, 
-  { id: 1003, label: "User #1003 completed an action", time: "9 minutes ago",  tag: "Delete", hue: 320 },
-  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }, 
-  
+  { id: 1004, label: "User #1004 completed an action", time: "12 minutes ago", tag: "View",   hue: 20  }
 ];
