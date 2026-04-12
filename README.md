@@ -6,7 +6,8 @@ A full-stack AI-powered web application that fetches real Google Maps reviews fo
 ## 🎥 Video Walkthrough
 
 > [![Video Title](https://img.youtube.com/vi/Qk-0I0tDEoo/0.jpg)](https://www.youtube.com/watch?v=Qk-0I0tDEoo)
-> The video covers:
+
+> - The video covers:
 > - Searching for any restaurant by name and location
 > - Live review fetching from Google Maps via SerpAPI
 > - AI sentiment analysis (Positive / Negative classification)
