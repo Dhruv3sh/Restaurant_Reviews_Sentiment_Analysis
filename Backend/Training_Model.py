@@ -1,12 +1,12 @@
-# training model
+# train_and_save.py
 import joblib, re, nltk
 import pandas as pd
 from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -14,6 +14,7 @@ nltk.download('omw-1.4')
 
 # Load data
 df = pd.read_csv('Restaurant_Reviews.tsv', sep='\t')
+df.columns = df.columns.str.strip()
 df['Liked'] = df['Liked'].fillna(0)
 df = df.fillna(0)
 
@@ -37,7 +38,7 @@ def expand_contractions(text):
     return text
 
 def clean_review(text):
-    text = expand_contractions(text)
+    text = expand_contractions(str(text))
     text = re.sub(r'[^a-zA-Z\s]', '', text).lower()
     words = text.split()
     clean_words = [lemmatizer.lemmatize(w) for w in words if w not in stop_words]
@@ -48,20 +49,27 @@ def clean_review(text):
     return ' '.join(final_words)
 
 # Preprocess
+print("Preprocessing reviews...")
 corpus = df['Review'].apply(clean_review).tolist()
 
 # Vectorize
+print("Vectorizing...")
 tfidf = TfidfVectorizer(max_features=2000, ngram_range=(1, 3))
 X = tfidf.fit_transform(corpus).toarray()
 y = df['Liked'].values
 
 # Train
+print("Training model...")
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
 classifier = RandomForestClassifier(n_estimators=300, criterion='entropy', random_state=42)
 classifier.fit(X_train, y_train)
 
+# Evaluate
+y_pred = classifier.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Model Accuracy: {accuracy * 100:.2f}%")
+
 # Save
 joblib.dump(classifier, 'model.pkl')
 joblib.dump(tfidf, 'vectorizer.pkl')
-
 print("✅ model.pkl and vectorizer.pkl saved successfully!")
